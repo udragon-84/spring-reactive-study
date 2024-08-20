@@ -1,0 +1,37 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: vote-gateway
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/weverse?sslMode=DISABLED
+    username: root
+    password: 1234
+    pool:
+      enabled: true
+      max-size: 20
+      initial-size: 1
+      validation-query: SELECT 1
+  data:
+    r2dbc:
+      repositories:
+        enabled: true
+    redis:
+      host: localhost
+      port: 6379
+  cloud:
+    gateway:
+      routes:
+        - id: vote_route
+          uri: lb://vote-service
+          predicates:
+            - Path=/api/**
+          filters:
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter:
+                  replenishRate: 1 # 초당 1개의 토근이 생성됨
+                  burstCapacity: 1
+                  requestedTokens: 1
+                key-resolver: "#{@userKeyResolver}"
