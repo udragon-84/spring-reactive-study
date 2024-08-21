@@ -1,8 +1,23 @@
 server:
-  port: 8080
+  port: 8081
 
 spring:
   application:
     name: vote-processor
-
-    
+  cassandra:
+    username: root
+    password: 1234
+    ssl:
+      enabled: false
+    port: 9042
+    keyspace-name: vote_processor
+    schema-action: create_if_not_exists
+    request:
+      timeout: 2000
+    contact-points: localhost
+    connection:
+      connect-timeout: 5000
+      init-query-timeout: 5000
+    pool:
+      idle-timeout: 5000
+    local-datacenter: datacenter1

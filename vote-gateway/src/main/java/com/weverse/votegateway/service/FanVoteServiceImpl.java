@@ -1,6 +1,6 @@
 package com.weverse.votegateway.service;
 
-import com.weverse.votegateway.repository.FanVotesRepository;
+import com.weverse.votegateway.repository.FanVoteRepository;
 import com.weverse.votegateway.service.convert.FanVoteConverter;
 import com.weverse.votegateway.service.dto.FanVoteDto;
 import lombok.extern.slf4j.Slf4j;
@@ -14,12 +14,12 @@ import reactor.core.publisher.Mono;
 public class FanVoteServiceImpl implements FanVoteService {
 
     @Autowired
-    private FanVotesRepository fanVotesRepository;
+    private FanVoteRepository fanVoteRepository;
 
     @Override
     @Transactional(readOnly = false)
     public Mono<FanVoteDto> saveFanVote(FanVoteDto fanVoteDto) {
-        return this.fanVotesRepository.save(FanVoteConverter.toEntity(fanVoteDto))
+        return this.fanVoteRepository.save(FanVoteConverter.toEntity(fanVoteDto))
                 .map(FanVoteConverter::toDto);
     }
 }
