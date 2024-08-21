@@ -29,12 +29,7 @@ public class VoteProcessorController {
                         .message("fan vote success").result(true)
                         .httpStatus(HttpStatus.OK)
                         .data(dto)
-                        .build())
-                .onErrorResume(e -> Mono.just(VoteProcessorResponse.<FanVoteProcessDto>builder()
-                        .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR).message(e.getMessage())
-                        .result(false)
-                        .data(null)
-                        .build()));
+                        .build());
     }
 
 }

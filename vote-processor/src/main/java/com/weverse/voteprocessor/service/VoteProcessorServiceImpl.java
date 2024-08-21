@@ -23,8 +23,7 @@ public class VoteProcessorServiceImpl implements VoteProcessorService {
                 .map(FanVoteProcessConvert::convertToFanVotoEventsEntity)
                 .flatMap(dto -> this.fanVoteProcessorRepository.save(dto))
                 .map(FanVoteProcessConvert::convertToFanVoteProcessDto)
-                .doOnNext(dto -> log.info("fanVoteProcessDto: {}", dto))
-                .log();
+                .doOnNext(dto -> log.info("fanVoteProcessDto: {}", dto));
     }
 
 }
