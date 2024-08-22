@@ -23,9 +23,8 @@ public class VoteServiceLoadBalancerConfiguration {
             @Override
             public Flux<List<ServiceInstance>> get() {
                 return Flux.just(Arrays.asList(
-                        //  Local에서는 일단 1대 인스턴스 기준으로 테스트만 진행했습니다(LoadBalancer).
                         new DefaultServiceInstance("vote-service1", "vote-service", "localhost", 8080, false),
-                        new DefaultServiceInstance("vote-service2", "vote-service", "localhost", 8080, false)
+                        new DefaultServiceInstance("vote-service2", "vote-service", "localhost", 8081, false)
                 ));
             }
             @Override

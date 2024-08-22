@@ -1,6 +1,8 @@
 package com.weverse.voteprocessor.service.convert;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.weverse.voteprocessor.repository.entity.FanVoteEventsEntity;
 import com.weverse.voteprocessor.service.dto.FanVoteDto;
 import com.weverse.voteprocessor.service.dto.FanVoteProcessDto;
@@ -13,17 +15,28 @@ import java.util.UUID;
 public class FanVoteProcessConvert {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
+    static {
+        // Java 8 날짜/시간 타입을 처리하기 위해 모듈을 등록
+        objectMapper.registerModule(new JavaTimeModule());
+        // LocalDateTime을 타임스탬프 대신 ISO-8601 형식으로 직렬화하도록 설정
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    }
 
     public static FanVoteEventsEntity convertToFanVotoEventsEntity(FanVoteDto fanVoteDto) {
         try {
+            UUID uuid = UUID.randomUUID();
+            LocalDateTime localDateTime = LocalDateTime.now();
+            fanVoteDto.setId(uuid);
+            fanVoteDto.setCreatedAt(localDateTime);
+
             return FanVoteEventsEntity.builder()
-                    .id(UUID.randomUUID())
+                    .id(uuid)
                     .userId(fanVoteDto.getUserId())
                     .jsonData(objectMapper.writeValueAsString(fanVoteDto))
-                    .createdAt(LocalDateTime.now())
+                    .createdAt(localDateTime)
                     .build();
         } catch (Exception e) {
-            log.info("convertToFanVoteProcessDto Exception: ", e);
+            log.error("convertToFanVoteProcessDto Exception: {}", e.getMessage(), e);
             throw new RuntimeException(e);
         }
     }

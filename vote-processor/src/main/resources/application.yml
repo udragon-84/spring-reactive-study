@@ -1,9 +1,15 @@
 server:
   port: 8081
+  shutdown: graceful
+  netty:
+    connection-timeout: 2s
+    idle-timeout: 15s
 
 spring:
   application:
     name: vote-processor
+  lifecycle:
+    timeout-per-shutdown-phase: 15s
   cassandra:
     username: root
     password: 1234
@@ -21,3 +27,7 @@ spring:
     pool:
       idle-timeout: 5000
     local-datacenter: datacenter1
+  kafka:
+    bootstrap-servers: localhost:9092
+    template:
+      default-topic: vote-topic

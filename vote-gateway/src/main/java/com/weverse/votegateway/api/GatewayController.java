@@ -21,7 +21,8 @@ public class GatewayController {
     @Autowired
     private FanVoteService fanVoteService;
 
-    private final WebClient webClient = WebClient.builder().baseUrl("http://localhost:8081").build();
+    @Autowired
+    private WebClient webClient;
 
     @PostMapping(value = "/vote")
     public Mono<VoteResponse<FanVoteDto>> vote(@Valid @RequestBody FanVoteDto fanVoteDto) {

@@ -1,6 +1,29 @@
 server:
   port: 8082
+  shutdown: graceful
+  netty:
+    connection-timeout: 2s
+    idle-timeout: 15s
 
 spring:
   application:
     name: vote-storage
+  lifecycle:
+    timeout-per-shutdown-phase: 15s
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/weverse?sslMode=DISABLED
+    username: root
+    password: 1234
+    pool:
+      enabled: true
+      max-size: 20
+      initial-size: 5
+      validation-query: SELECT 1
+  data:
+    r2dbc:
+      repositories:
+        enabled: true
+  kafka:
+    bootstrap-servers: localhost:9092
+    template:
+      default-topic: vote-topic
