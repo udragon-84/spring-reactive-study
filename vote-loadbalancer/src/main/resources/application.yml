@@ -1,0 +1,10 @@
+server:
+  port: 9999
+  shutdown: graceful
+  netty:
+    connection-timeout: 20s
+    idle-timeout: 20s
+
+spring:
+  application:
+    name: vote-loadbalancer

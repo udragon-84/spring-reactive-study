@@ -9,6 +9,7 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @RestController
 public class HealthCheckController {
+
     @GetMapping(value="/hello")
     public Mono<VoteStorageResponse<String>> healthCheck() {
         log.info("HealthCheckController.healthCheck");
