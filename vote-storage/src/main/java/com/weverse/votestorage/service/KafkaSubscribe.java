@@ -1,5 +1,7 @@
 package com.weverse.votestorage.service;
 
-public interface KafkaSubscribe {
-    void consumeAndSave();
+import reactor.core.publisher.Mono;
+
+public interface KafkaSubscribe<T> {
+    Mono<T> consumeAndSave();
 }

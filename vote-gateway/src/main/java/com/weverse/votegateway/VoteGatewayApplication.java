@@ -10,5 +10,4 @@ public class VoteGatewayApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(VoteGatewayApplication.class, args);
 	}
-
 }

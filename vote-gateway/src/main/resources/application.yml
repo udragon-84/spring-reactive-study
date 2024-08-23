@@ -40,9 +40,9 @@ spring:
             - name: RequestRateLimiter
               args:
                 redis-rate-limiter:
-                  replenishRate: 1 # 초당 1개의 토근이 생성됨
-                  burstCapacity: 1
-                  requestedTokens: 1
+                  replenishRate: 20 # 초당 버킷에 떨어지는 토큰의 수
+                  burstCapacity: 40 # 최대 40개 요청까지 허용
+                  requestedTokens: 1 # 하나의 요청 처리에 몇 개의 토큰이 사용되는지 지정
                 key-resolver: "#{@userKeyResolver}"
 
 vote:
