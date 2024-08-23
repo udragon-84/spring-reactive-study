@@ -8,3 +8,25 @@ server:
 spring:
   application:
     name: vote-loadbalancer
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      connect-timeout: 2s
+      timeout: 1s
+  cloud:
+    gateway:
+      routes:
+        - id: vote_route
+          uri: lb://vote-service
+          predicates:
+            - Path=/**
+          filters:
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter:
+                  replenishRate: 20 # 초당 버킷에 떨어지는 토큰의 수
+                  burstCapacity: 40 # 최대 40개 요청까지 허용
+                  requestedTokens: 1 # 하나의 요청 처리에 몇 개의 토큰이 사용되는지 지정
+                key-resolver: "#{@userKeyResolver}"
