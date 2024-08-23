@@ -47,7 +47,7 @@ public class VoteLoadBalancerController {
                 .retrieve()
                 .bodyToMono(FanVoteDto.class)
                 .map(dto -> VoteLoadBalancingResponse.<FanVoteDto>builder()
-                        .data(dto)
+                        .data(fanVoteDto)
                         .httpStatus(HttpStatus.OK)
                         .message("success")
                         .result(true)
