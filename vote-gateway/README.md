@@ -1,6 +1,7 @@
 # vote-gateway
 
 * 프로젝트 구동 하기전 선행 작업
+  * server.port: 8080, 8081 
   * mysql8.0 설치: brew install mysql@8.0
   * Redis7.2.5 설치: brew install redis
 

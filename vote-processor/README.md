@@ -1,7 +1,7 @@
 # vote-processor
 
 * 프로젝트 구동 하기전 선행 작업
-
+  * server.port: 8082
 
 * 카산드라 설치
     * brew install pyenv
