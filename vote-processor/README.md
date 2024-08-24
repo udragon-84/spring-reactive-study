@@ -16,12 +16,30 @@
   * 서버구동: cassandra
   * 카산드라 구동 상태 확인: nodetool status
   * 카산드라 cli: cqlsh -u {user} -p {password} 
+  * 카프카 전송 이력 테이블 생성
+  * CREATE TABLE vote_processor.fan_vote_events (
+    id UUID PRIMARY KEY,
+    userId text,
+    createdAt timestamp,
+    jsonData text
+    );
+
 * 카프카 설치
   * https://kafka.apache.org/downloads
   * 3.5.2 버전 다운로드
 * 카프카 환경 변수 세팅
   * 브로커를 Kraft 모드로 실행 (주키퍼 필요없음 테스트용도)
-  * config/server.properties 오픈
+  * config/server.properties 오픈 및 수정
+    * process.roles=broker,controller
+    * node.id=1
+    * controller.quorum.voters=1@localhost:9093
+    * controller.listener.names=CONTROLLER
+    * listeners=PLAINTEXT://localhost:9092,CONTROLLER://localhost:9093
+    * advertised.listeners=PLAINTEXT://localhost:9092
+    * log.dirs=/Users/youchangkeun/Desktop/dev/messagebroker/kafka/logs
+    * metadata.log.dir=/Users/youchangkeun/Desktop/dev/messagebroker/kafka/data
+    * log.segment.bytes=1073741824
+    * auto.create.topics.enable=true
   * 클러스터 ID 생성(최초 1회)
     * kafka-storage.sh random-uuid
   * Kafka 저장소 포맷(최초 1회)
