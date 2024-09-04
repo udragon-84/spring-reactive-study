@@ -1,5 +1,4 @@
-# weverse company 과제
-기간: 2024.08.19 ~ 2024.08.23
+# Spring Webflux Study
 
 지원자: 유창근
 
